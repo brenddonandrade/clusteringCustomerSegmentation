@@ -1,0 +1,43 @@
+#!/bin/bash
+#####################  SLURM  ######################
+#SBATCH --job-name=brenddonDgrcl        # Nome do job
+#SBATCH --partition=ryzen9-L-gpu          # Fila/partition com GPU
+#SBATCH --nodes=1
+#SBATCH --gres=gpu:1                    # 1 GPU
+#SBATCH --cpus-per-task=12              # 12 vCPUs
+#SBATCH --time=47:00:00                 # 47 h de wall‑clock
+## SBATCH --exclusive
+
+####################  MÓDULOS  #####################
+module purge
+module load anaconda3-2020.11-gcc-9.4.0-sueemy2   # só o Anaconda
+
+#####################  CONDA  ######################
+source "$(conda info --base)/etc/profile.d/conda.sh"
+conda activate bteste     # env com PyTorch 2.0.1+cu118 / pytorch‑cuda 11.8
+
+# Faz o runtime CUDA 11.8 e a libstdc++ do conda vencerem as do sistema
+export LD_LIBRARY_PATH="$CONDA_PREFIX/lib:$LD_LIBRARY_PATH"
+
+# Threads OpenMP (caso Torch/NumPy use multiprocessador)
+export OMP_NUM_THREADS=$SLURM_CPUS_PER_TASK
+
+####################  SCRATCH  #####################
+SCRATCH=/local-scratch/$SLURM_JOB_ID
+mkdir -p "$SCRATCH"
+rsync -az --exclude=".git" "$SLURM_SUBMIT_DIR/" "$SCRATCH/"
+cd "$SCRATCH"
+
+####################  EXECUÇÃO  ####################
+dir=./notebooks
+file=analysis.py
+log=out_analysis.log
+
+start=$(date +%s)
+python -u $dir/$file > $log 2>&1
+end=$(date +%s)
+runtime=$((end - start))
+echo "Tempo total (segundos): $runtime" >> $log
+
+#################  RESULTADOS DE VOLTA ############
+rsync -az --exclude=".git" "$SCRATCH/" "$SLURM_SUBMIT_DIR/"

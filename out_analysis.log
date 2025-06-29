@@ -1,0 +1,15 @@
+  0%|          | 0/9 [00:00<?, ?it/s] 11%|█         | 1/9 [16:08<2:09:11, 968.96s/it] 22%|██▏       | 2/9 [32:18<1:53:03, 969.09s/it] 33%|███▎      | 3/9 [48:27<1:36:54, 969.00s/it] 44%|████▍     | 4/9 [1:04:36<1:20:45, 969.10s/it] 56%|█████▌    | 5/9 [1:20:45<1:04:36, 969.05s/it] 67%|██████▋   | 6/9 [1:36:58<48:30, 970.33s/it]   78%|███████▊  | 7/9 [1:53:09<32:21, 970.78s/it] 89%|████████▉ | 8/9 [2:09:15<16:09, 969.03s/it]100%|██████████| 9/9 [2:25:20<00:00, 967.98s/it]100%|██████████| 9/9 [2:25:20<00:00, 968.97s/it]
+Melhor número de clusters: 4
+First 0.00 seconds
+Second 0.10 seconds
+Traceback (most recent call last):
+  File "/local-scratch/11935/./notebooks/analysis.py", line 124, in <module>
+    df_clusters = pd.concat([pd.DataFrame(X, columns=df_clients.columns[:-1]), df_clients['cluster']], axis=1)
+  File "/home/rodrigo_amorim/.conda/envs/bteste/lib/python3.10/site-packages/pandas/core/frame.py", line 827, in __init__
+    mgr = ndarray_to_mgr(
+  File "/home/rodrigo_amorim/.conda/envs/bteste/lib/python3.10/site-packages/pandas/core/internals/construction.py", line 336, in ndarray_to_mgr
+    _check_values_indices_shape_match(values, index, columns)
+  File "/home/rodrigo_amorim/.conda/envs/bteste/lib/python3.10/site-packages/pandas/core/internals/construction.py", line 420, in _check_values_indices_shape_match
+    raise ValueError(f"Shape of passed values is {passed}, indices imply {implied}")
+ValueError: Shape of passed values is (406829, 2), indices imply (406829, 8)
+Tempo total (segundos): 8738

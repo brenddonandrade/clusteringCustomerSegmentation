@@ -1,0 +1,13 @@
+Traceback (most recent call last):
+  File "/local-scratch/11931/.//analysis.py", line 52, in <module>
+    df_clients = pd.read_excel(file)
+  File "/home/rodrigo_amorim/.conda/envs/bteste/lib/python3.10/site-packages/pandas/io/excel/_base.py", line 495, in read_excel
+    io = ExcelFile(
+  File "/home/rodrigo_amorim/.conda/envs/bteste/lib/python3.10/site-packages/pandas/io/excel/_base.py", line 1550, in __init__
+    ext = inspect_excel_format(
+  File "/home/rodrigo_amorim/.conda/envs/bteste/lib/python3.10/site-packages/pandas/io/excel/_base.py", line 1402, in inspect_excel_format
+    with get_handle(
+  File "/home/rodrigo_amorim/.conda/envs/bteste/lib/python3.10/site-packages/pandas/io/common.py", line 882, in get_handle
+    handle = open(handle, ioargs.mode)
+FileNotFoundError: [Errno 2] No such file or directory: '../data/clientes.xlsx'
+Tempo total (segundos): 1
